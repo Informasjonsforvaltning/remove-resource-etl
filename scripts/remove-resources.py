@@ -22,36 +22,16 @@ def openfile(file_name):
 
 def get_url(resource_type):
     global env
-    if resource_type == 'concepts':
+    if resource_type in ['concepts', 'dataservices', 'datasets', 'informationmodels']:
         if env in ['staging', 'demo']:
-            return 'https://concepts.' + env + '.fellesdatakatalog.digdir.no/concepts/'
+            return 'https://' + resource_type + '.' + env + '.fellesdatakatalog.digdir.no/' + resource_type + '/duplicates'
         else:
-            return 'https://concepts.fellesdatakatalog.digdir.no/concepts/'
-    elif resource_type == 'data-services':
+            return 'https://' + resource_type + '.fellesdatakatalog.digdir.no/' + resource_type + '/duplicates'
+    elif resource_type in ['events', 'public-services']:
         if env in ['staging', 'demo']:
-            return 'https://dataservices.' + env + '.fellesdatakatalog.digdir.no/dataservices/'
+            return 'https://' + env + '.fellesdatakatalog.digdir.no/' + resource_type + '/duplicates'
         else:
-            return 'https://dataservices.fellesdatakatalog.digdir.no/dataservices/'
-    elif resource_type == 'datasets':
-        if env in ['staging', 'demo']:
-            return 'https://datasets.' + env + '.fellesdatakatalog.digdir.no/datasets/'
-        else:
-            return 'https://datasets.fellesdatakatalog.digdir.no/datasets/'
-    elif resource_type == 'events':
-        if env in ['staging', 'demo']:
-            return 'https://' + env + '.fellesdatakatalog.digdir.no/events/'
-        else:
-            return 'https://data.norge.no/events/'
-    elif resource_type == 'information-models':
-        if env in ['staging', 'demo']:
-            return 'https://informationmodels.' + env + '.fellesdatakatalog.digdir.no/informationmodels/'
-        else:
-            return 'https://informationmodels.fellesdatakatalog.digdir.no/informationmodels/'
-    elif resource_type == 'services':
-        if env in ['staging', 'demo']:
-            return 'https://' + env + '.fellesdatakatalog.digdir.no/public-services/'
-        else:
-            return 'https://data.norge.no/public-services/'
+            return 'https://data.norge.no/' + resource_type + '/duplicates'
 
 
 resources = openfile(args.inputdirectory + 'resources.json')
