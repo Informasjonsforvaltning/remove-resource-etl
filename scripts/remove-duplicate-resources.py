@@ -25,16 +25,16 @@ def openfile(file_name):
 
 def get_url(resource_type):
     global env
-    if resource_type in ['concepts', 'dataservices', 'datasets', 'informationmodels']:
+    if resource_type in ['concepts', 'dataservices', 'datasets', 'events', 'informationmodels']:
         if env in ['staging', 'demo']:
-            return 'https://' + resource_type + '.' + env + '.fellesdatakatalog.digdir.no/' + resource_type + '/duplicates'
+            return 'https://' + resource_type + '.' + env + '.fellesdatakatalog.digdir.no/' + resource_type + '/remove-duplicates'
         else:
-            return 'https://' + resource_type + '.fellesdatakatalog.digdir.no/' + resource_type + '/duplicates'
-    elif resource_type in ['events', 'public-services']:
+            return 'https://' + resource_type + '.fellesdatakatalog.digdir.no/' + resource_type + '/remove-duplicates'
+    elif resource_type in ['public-services']:
         if env in ['staging', 'demo']:
-            return 'https://' + env + '.fellesdatakatalog.digdir.no/' + resource_type + '/duplicates'
+            return 'https://services.' + env + '.fellesdatakatalog.digdir.no/' + resource_type + '/remove-duplicates'
         else:
-            return 'https://data.norge.no/' + resource_type + '/duplicates'
+            return 'https://services.fellesdatakatalog.digdir.no/' + resource_type + '/remove-duplicates'
 
 
 duplicate_resources = openfile(args.inputdirectory + 'duplicate_resources.json')
