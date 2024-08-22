@@ -27,10 +27,6 @@ def get_url(resource_type, fdk_id):
     return get_base_url(resource_type) + '/' + fdk_id + '/remove'
 
 
-def get_update_meta_url(resource_type):
-    return get_base_url(resource_type) + '/update/meta'
-
-
 def get_base_url(resource_type):
     global env
     if resource_type in ['concepts', 'dataservices', 'datasets', 'events', 'informationmodels']:
@@ -45,7 +41,7 @@ def get_base_url(resource_type):
             return 'https://services.fellesdatakatalog.digdir.no/' + resource_type
 
 
-resources = openfile(args.inputdirectory + 'remove_remove_resources.json')
+resources = openfile(args.inputdirectory + 'remove_resources.json')
 env_options = ['staging', 'demo', 'prod']
 env = get_user_input("Please specify the environment where the script should be run (staging/demo/prod): ", env_options)
 print(f"You have selected: {env}")
@@ -69,10 +65,6 @@ for resource in resources:
                 print(response.text)
         print('Removed ' + str(removed) + ' ' + resource + ' successfully')
         print('Failed to remove ' + str(failed) + ' ' + resource)
-
-    # TODO: fjerne/beholde respons?
-    update_meta_response = requests.request("POST", url=get_update_meta_url(resource), headers={"Authorization": "Bearer " + token})
-    print("Update meta requested for: " + resource)
 
 with open(token_file_name, 'w') as token_file:
     pass

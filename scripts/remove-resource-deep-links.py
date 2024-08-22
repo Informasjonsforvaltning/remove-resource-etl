@@ -71,7 +71,7 @@ for resource in resources_to_purge:
             response_json = requests.request("DELETE", url=resource_api_url, headers={"Authorization": "Bearer " + token})
             if response_rdf.status_code == 204:
                 removed_rdf += 1
-                print('RDF: Resource ' + fdkId + ' purged successfully')
+                print('RDF: Resource ' + fdkId + ' purge job accepted')
             elif response_rdf.status_code in [401, 403]:
                 exit("RDF: The provided token was invalid or expired, exiting ...")
             else:
@@ -80,13 +80,13 @@ for resource in resources_to_purge:
             if response_json.status_code == 204:
                 removed_json += 1
                 print('JSON: Resource ' + fdkId + ' purged successfully')
-            elif response_rdf.status_code in [401, 403]:
+            elif response_json.status_code in [401, 403]:
                 exit("JSON: The provided token was invalid or expired, exiting ...")
             else:
-                failed_rdf += 1
+                failed_json += 1
                 print('JSON failed, status: ' + str(response_json.status_code))
-        print(resource + ': Purged RDF: ' + str(removed_rdf) + ' || Purged JSON: ' + str(removed_json))
-        print(resource + ': Failed to purge RDF: ' + str(failed_rdf) + ' || Failed to purge JSON: ' + str(failed_json))
+        print(resource + ': RDF purge jobs accepted: ' + str(removed_rdf) + ' || Purged JSON: ' + str(removed_json))
+        print(resource + ': RDF purge jobs not accepted: ' + str(failed_rdf) + ' || Failed to purge JSON: ' + str(failed_json))
 
 with open(token_file_name, 'w') as token_file:
     pass
